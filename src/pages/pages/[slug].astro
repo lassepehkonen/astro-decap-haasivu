@@ -13,20 +13,20 @@ export async function getStaticPaths() {
 }
 
 type Props = {
-  post: CollectionEntry<"posts">;
+  post: CollectionEntry<"pages">;
 };
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+const { page } = Astro.props;
+const { Content } = await page.render();
 ---
 
-<Layout title={post.data.title}>
+<Layout title={page.data.title}>
   <main class="post mx-auto flex w-full max-w-prose flex-col gap-4">
     <header role="presentation">
       <h1 class="text-md">
-        {post.data.title} - {formatDate(post.data.publishedAt)}
+        {page.data.title} - {formatDate(page.data.publishedAt)}
       </h1>
-      <p class="italic">{post.data.description}</p>
+      <p class="italic">{page.data.description}</p>
     </header>
 
     <Content />
