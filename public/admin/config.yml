@@ -16,7 +16,7 @@ collections:
     folder: src/content/posts
     create: true
     format: frontmatter
-    preview_path: post/{{slug}}
+    preview_path: posts/{{slug}}
     fields:
       - { name: title, label: Title }
       - { name: description, label: Description }
@@ -30,7 +30,7 @@ collections:
     folder: src/content/pages
     create: true
     format: frontmatter
-    preview_path: page/{{slug}}
+    preview_path: pages/{{slug}}
     fields:
       - { name: title, label: Title }
       - { name: description, label: Description }
