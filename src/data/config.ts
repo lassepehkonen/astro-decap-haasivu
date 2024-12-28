@@ -1,1 +1,1 @@
-export const SITE_URL = "https://astro-decapcms-starter.netlify.app/";
+export const SITE_URL = "https://singular-belekoy-185ac4.netlify.app/";
