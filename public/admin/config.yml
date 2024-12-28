@@ -23,7 +23,7 @@ collections:
       - { name: publishedAt, label: Date, widget: date }
       - {label: "Publish", name: "isPublish", widget: "boolean", default: true}
       - {label: "Draft", name: "isDraft", widget: "boolean", default: false}
-      - { name: body, label: Body, widget: markdown },
+      - { name: body, label: Body, widget: markdown }
 
   - name: page
     label: Pages
