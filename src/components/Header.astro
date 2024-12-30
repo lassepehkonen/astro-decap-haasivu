@@ -1,31 +1,28 @@
 ---
-import removeTrailingSlash from "@/utils/removeTrailingSlash";
-import presentation from "@/data/presentation";
-
-const pathname = removeTrailingSlash(Astro.url.pathname);
+// Importoi tarvittavat toiminnot ja tiedot
+import { getCollection } from "astro:content";
+import presentation from "@/data/presentation"; // Jos tämä on tarpeen
+const pages = await getCollection("pages"); // Hae kaikki sivut (tai määritä hakukriteerit)
 ---
 
 <header class="z-40 flex w-full flex-col gap-2 md:flex-row md:justify-between">
-  <a href={`mailto:${presentation.mail}`} class="hover:text-rose-gold font-serif text-lg">
+  <a href={`mailto:${presentation.mail}`} class="hover:text-neutral-100">
     {presentation.mail}
   </a>
 
   <nav role="navigation">
-    <ul
-      role="list"
-      class="flex flex-row gap-4 px-6 py-4 rounded-lg bg-neutral-900/80 shadow-md backdrop-blur-sm md:gap-6"
-      style="border-radius: 12px;"
-    >
+    <ul role="list" class="flex flex-row gap-4 px-6 py-2 rounded-lg bg-neutral-900/80 shadow-md backdrop-blur-sm md:gap-6">
       <li>
         <a
           href="/"
           class:list={{
             ["hover:text-rose-gold"]: true,
-            ["text-rose-gold font-bold"]: pathname === "/",
-            ["text-neutral-100"]: pathname !== "/",
-            "font-serif text-lg": true,
+            ["text-rose-gold font-bold"]: Astro.url.pathname === "/",
+            ["text-neutral-100"]: Astro.url.pathname !== "/",
           }}
-        >Home</a>
+        >
+          Home
+        </a>
       </li>
       <li>/</li>
       <li>
@@ -33,13 +30,28 @@ const pathname = removeTrailingSlash(Astro.url.pathname);
           href="/posts"
           class:list={{
             ["hover:text-rose-gold"]: true,
-            ["text-rose-gold font-bold"]: pathname === "/posts",
-            ["text-neutral-100"]: pathname !== "/posts",
-            "font-serif text-lg": true,
+            ["text-rose-gold font-bold"]: Astro.url.pathname === "/posts",
+            ["text-neutral-100"]: Astro.url.pathname !== "/posts",
           }}
-        >Posts</a>
+        >
+          Posts
+        </a>
+        <li>/</li>
       </li>
+      {pages.map((page) => (
+        <li ={page.slug}>
+          <a
+            href={`/pages/${page.slug}`}
+            class:list={{
+              ["hover:text-rose-gold"]: true,
+              ["text-rose-gold font-bold"]: Astro.url.pathname === `/${page.slug}`,
+              ["text-neutral-100"]: Astro.url.pathname !== `/${page.slug}`,
+            }}
+          >
+            {page.data.title}
+          </a>
+        </li>
+      ))}
     </ul>
   </nav>
 </header>
-
