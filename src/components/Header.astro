@@ -21,23 +21,10 @@ const pages = await getCollection("pages"); // Hae kaikki sivut (tai määritä 
             ["text-neutral-100"]: Astro.url.pathname !== "/",
           }}
         >
-          Home
+          Koti
         </a>
       </li>
       <li>/</li>
-      <li>
-        <a
-          href="/posts"
-          class:list={{
-            ["hover:text-rose-gold"]: true,
-            ["text-rose-gold font-bold"]: Astro.url.pathname === "/posts",
-            ["text-neutral-100"]: Astro.url.pathname !== "/posts",
-          }}
-        >
-          Posts
-        </a>
-        <li>/</li>
-      </li>
       {pages.map((page) => (
         <li ={page.slug}>
           <a
@@ -51,7 +38,20 @@ const pages = await getCollection("pages"); // Hae kaikki sivut (tai määritä 
             {page.data.title}
           </a>
         </li>
+      <li>/</li>
       ))}
+      <li>
+        <a
+          href="/posts"
+          class:list={{
+            ["hover:text-rose-gold"]: true,
+            ["text-rose-gold font-bold"]: Astro.url.pathname === "/posts",
+            ["text-neutral-100"]: Astro.url.pathname !== "/posts",
+          }}
+        >
+          Postaukset
+        </a>
+      </li>
     </ul>
   </nav>
 </header>

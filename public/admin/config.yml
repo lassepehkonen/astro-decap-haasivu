@@ -25,16 +25,42 @@ collections:
       - {label: "Draft", name: "isDraft", widget: "boolean", default: false}
       - { name: body, label: Body, widget: markdown }
 
-  - name: page
-    label: Pages
-    folder: src/content/pages
-    create: true
-    format: frontmatter
-    preview_path: pages/{{slug}}
-    fields:
-      - { name: title, label: Title }
-      - { name: description, label: Description }
-      - { name: publishedAt, label: Date, widget: date }
-      - {label: "Publish", name: "isPublish", widget: "boolean", default: true}
-      - {label: "Draft", name: "isDraft", widget: "boolean", default: false}
-      - { name: body, label: Body, widget: markdown }
+    - name: page
+      label: Pages
+      folder: src/content/pages
+      create: true
+      format: frontmatter
+      preview_path: pages/{{slug}}
+      fields:
+        - { name: title, label: Title }
+        - { name: description, label: Description }
+        - { name: publishedAt, label: Date, widget: date }
+        - { label: "Publish", name: "isPublish", widget: "boolean", default: true }
+        - { label: "Draft", name: "isDraft", widget: "boolean", default: false }
+        - name: body
+          label: Body
+          widget: list
+          types:
+            - label: Text
+              name: text
+              widget: object
+              fields:
+                - { name: content, label: Content, widget: markdown }
+            - label: Image
+              name: image
+              widget: object
+              fields:
+                - { name: src, label: Image, widget: image }
+                - { name: alt, label: Alt Text, widget: string }
+            - label: Columns
+              name: columns
+              widget: object
+              fields:
+                - label: Columns
+                  name: columns
+                  widget: list
+                  fields:
+                    - { name: content, label: Content, widget: markdown }
+
+
+                      
