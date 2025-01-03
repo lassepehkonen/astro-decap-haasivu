@@ -27,7 +27,7 @@ const { page } = Astro.props;
       <p class="text-sm italic text-gray-500">{page.data.description}</p>
     </header>
 
-    {page.data.body.map((block) => {
+    {page.data.pagebody.map((block) => {
       switch (block.type) {
         case "text":
           return (
@@ -45,12 +45,12 @@ const { page } = Astro.props;
         case "columns":
           return (
             <div ={block.type} class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {block.columns.map((col, index) => (
-                <div ={index} class="p-4 bg-gray-100 rounded-lg shadow-md prose">
-                  <div set:html={col.content} />
+            {block.columns && block.columns.map((col, index) => (
+              <div ={index} class="p-4 bg-gray-100 rounded-lg shadow-md prose">
+                <div set:html={col.content} />
+              </div>
+            ))}
 
-                </div>
-              ))}
             </div>
           );
         default:
