@@ -32,7 +32,8 @@ const { page } = Astro.props;
         case "text":
           return (
             <div ={block.type} class="prose">
-              <div dangerouslySetInnerHTML={{ __html: block.content }} />
+              <div set:html={block.content} />
+
             </div>
           );
         case "image":
@@ -46,7 +47,8 @@ const { page } = Astro.props;
             <div ={block.type} class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {block.columns.map((col, index) => (
                 <div ={index} class="p-4 bg-gray-100 rounded-lg shadow-md prose">
-                  <div dangerouslySetInnerHTML={{ __html: col.content }} />
+                  <div set:html={col.content} />
+
                 </div>
               ))}
             </div>
