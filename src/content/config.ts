@@ -12,26 +12,33 @@ const postsCollection = defineCollection({
 });
 
 const pagesCollection = defineCollection({
+  type: "content",
   schema: z.object({
     title: z.string(),
+    publishedAt: z.date(),
     description: z.string(),
-    publishedAt: z.string().transform((str) => new Date(str)),
-    isPublish: z.boolean().default(true),
+    isPublish: z.boolean(),
     isDraft: z.boolean().default(false),
-    pagebody: z.array(
-      z.object({
-        type: z.enum(["text", "image", "columns"]),
-        content: z.string().optional(), // Tekstisisällölle
-        src: z.string().optional(),     // Kuvan URL
-        alt: z.string().optional(),     // Kuvan Alt-teksti
-        columns: z
-          .array(
+    body: z.array(
+      z.union([
+        z.object({
+          type: z.literal("text"),
+          content: z.string(),
+        }),
+        z.object({
+          type: z.literal("image"),
+          src: z.string(),
+          alt: z.string(),
+        }),
+        z.object({
+          type: z.literal("columns"),
+          columns: z.array(
             z.object({
-              content: z.string(),      // Sarakkeiden sisältö
+              content: z.string(),
             })
-          )
-          .optional(),
-      })
+          ),
+        }),
+      ])
     ),
   }),
 });
