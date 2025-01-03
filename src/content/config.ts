@@ -12,34 +12,29 @@ const postsCollection = defineCollection({
 });
 
 const pagesCollection = defineCollection({
-  type: "content",
   schema: z.object({
     title: z.string(),
-    publishedAt: z.date(),
     description: z.string(),
-    isPublish: z.boolean(),
+    publishedAt: z.date(),
+    isPublish: z.boolean().default(true),
     isDraft: z.boolean().default(false),
-    body: z.array(
-      z.union([
+    pagebody: z
+      .array(
         z.object({
-          type: z.literal("text"),
-          content: z.string(),
-        }),
-        z.object({
-          type: z.literal("image"),
-          src: z.string(),
-          alt: z.string(),
-        }),
-        z.object({
-          type: z.literal("columns"),
-          columns: z.array(
-            z.object({
-              content: z.string(),
-            })
-          ),
-        }),
-      ])
-    ),
+          type: z.enum(["text", "image", "columns"]),
+          content: z.string().optional(),
+          src: z.string().optional(),
+          alt: z.string().optional(),
+          columns: z
+            .array(
+              z.object({
+                content: z.string(),
+              })
+            )
+            .optional(),
+        })
+      )
+      .optional(),
   }),
 });
 
